@@ -390,10 +390,12 @@ public class ArvAVL <T> {
      */
 
     public static int alturaMinima(int h){
-
+        
         if(h == 0)
-            return 1;
+            return 0;
         if(h == 1)
+            return 1;
+        if(h == 2)
             return 2;
             
         return (alturaMinima(h - 1) + 
