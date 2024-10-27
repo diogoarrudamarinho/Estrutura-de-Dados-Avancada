@@ -380,4 +380,24 @@ public class ArvAVL <T> {
 
         return balanceia(no);
     }
+
+    /**
+     * Método que calcula a quantidade mínima de nós para uma altura.
+     * 
+     * @param h altura
+     * 
+     * @return quantidade Mínima de nós para a altura.
+     */
+
+    public static int alturaMinima(int h){
+
+        if(h == 0)
+            return 1;
+        if(h == 1)
+            return 2;
+            
+        return (alturaMinima(h - 1) + 
+                alturaMinima(h - 2) + 1);
+    }
+
 }
