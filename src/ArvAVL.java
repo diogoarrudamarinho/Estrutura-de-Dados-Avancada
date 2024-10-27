@@ -401,4 +401,43 @@ public class ArvAVL <T> {
                 alturaMinima(h - 2) + 1);
     }
 
+    /**
+     * Método que busca o nó ancestral em comum entre dois nós
+     * 
+     * @param chave1 chave do primeiro nó
+     * @param chave2 chave do segundo nó
+     * 
+     * @return O {@code no} ancestral entre dos nós
+     */
+
+    public T ancestral(int chave1, int chave2){
+        return ancestral(raiz, chave1, chave2).valor;
+    }
+
+    /**
+     * Método privado que busca recursivamente o nó ancestral em comum entre dois nós.
+     * 
+     * @param no nó atual
+     * @param chave1 chave do primeiro nó
+     * @param chave2 chave do segundo nó
+     * 
+     * @return O {@code no} ancestral entre dos nós
+     */
+
+    private No<T> ancestral(No<T> no, int chave1, int chave2){
+
+        if (no == null) 
+            return null;
+        
+        if (chave1 < no.chave && chave2 < no.chave)
+            return ancestral(no.esq, chave1, chave2);
+        
+        if (chave1 > no.chave && chave2 > no.chave)
+            return ancestral(no.dir, chave1, chave2);
+        
+        return no;
+            
+    }   
+    
+
 }
