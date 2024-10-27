@@ -99,20 +99,19 @@ public class ArvAVL <T> {
     private No<T> balanceia(No<T> no){
 
         if (no.balanc == 2) 
-            if (no.esq != null && no.esq.balanc == 1) 
+            if (no.esq != null && no.esq.balanc >= 0) 
                 no = rotacaoDir(no);
             else
                no = rotacaoDuplaDireita(no);
 
         else if (no.balanc == -2) 
 
-            if (no.dir != null && no.dir.balanc == -1) 
+            if (no.dir != null && no.dir.balanc <= 0) 
                 no = rotacaoEsq(no);
             else
                 no = rotacaoDuplaEsquerda(no);
         
         return no;
-
     }
 
     /**
@@ -390,7 +389,7 @@ public class ArvAVL <T> {
      */
 
     public static int alturaMinima(int h){
-        
+
         if(h == 0)
             return 0;
         if(h == 1)
