@@ -1,3 +1,6 @@
+import java.util.ArrayList;
+import java.util.List;
+
 public class ArvAVL <T> {
    
     public static class No <T> {
@@ -439,5 +442,58 @@ public class ArvAVL <T> {
             
     }   
     
+    /**
+     * Método estático que transforma uma árvore BST com atributos de AVL em uma árvore AVL
+     * 
+     * @param raiz raiz de uma árvore
+     * 
+     * @return uma árvore AVL
+     */
+
+    public static <T> ArvAVL<T> converteEmAVL(ArvAVL<T> raiz){
+
+        return converte(raiz); 
+    }
+
+    /**
+     * Método estático privado que faz a conversão da BST em AVL
+     * 
+     * @param arvore árvore a ser convertida
+     * 
+     * @return uma árvore AVL
+     */
+
+    private static <T> ArvAVL<T> converte(ArvAVL<T> arvore){
+
+        List<No<T>> listaNos = criaListaOrdenada(arvore.raiz);
+        ArvAVL<T> novaArvore = new ArvAVL<>();
+
+        for (No<T> no : listaNos) 
+            novaArvore.insere(no.chave, no.valor);
+        
+        return novaArvore;
+    }
+
+    /**
+     * Método estático recursivo que transforma a BST em uma lista ordenada
+     * 
+     * @param no raiz da árvore
+     * 
+     * @return lista ordenada de nós.
+     */
+
+    private static <T> List<No<T>> criaListaOrdenada(No<T> no){
+
+        List<No<T>> lista = new ArrayList<>();
+
+        if (no != null) 
+        {
+            lista.addAll(criaListaOrdenada(no.esq));
+            lista.add(no);
+            lista.addAll(criaListaOrdenada(no.dir));    
+        }
+
+        return lista;
+    }
 
 }
