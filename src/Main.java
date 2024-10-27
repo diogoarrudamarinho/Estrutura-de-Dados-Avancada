@@ -15,7 +15,7 @@ public class Main {
         */
         System.out.println("Quantidade minima de nós: ");
         for (int i = 0; i < 10; i++)
-            System.out.println("N("+ i+ ") = " + ArvAVL.alturaMinima(i));
+            System.out.println("N("+ (i+1) + ") = " + ArvAVL.alturaMinima(i));
         
         
     }
