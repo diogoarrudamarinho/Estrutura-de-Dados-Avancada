@@ -1,8 +1,15 @@
 import java.util.ArrayList;
 import java.util.List;
 
+/**
+ * Classe que representa uma Árvore Balanceada (AVL).
+ */
 public class ArvAVL <T> {
-   
+
+    /**
+     * Classe interna que representa os nós da árvore.
+     */
+
     public static class No <T> {
     
         private int chave;
@@ -12,6 +19,13 @@ public class ArvAVL <T> {
         private int h;
         private int balanc;
 
+        /**
+         * Construtor dos Nós internos
+         * 
+         * @param chave chave
+         * @param valor valor
+         */
+        
         public No(int chave, T valor){
             this.chave = chave;
             this.valor = valor;;
@@ -30,6 +44,7 @@ public class ArvAVL <T> {
      * 
      * @return {@code altura} da árvore/subárvore
      */
+
     public int getAltura() {
         return raiz.h;
     }
@@ -495,5 +510,4 @@ public class ArvAVL <T> {
 
         return lista;
     }
-
 }
