@@ -6,18 +6,18 @@ import java.util.List;
  */
 public class ArvAVL <T> {
 
+    private No<T> raiz;
+
     /**
      * Classe interna que representa os nós da árvore.
      */
 
-    public static class No <T> {
+    private static class No <T> {
     
         private int chave;
         private T valor;
-        private No<T> esq;
-        private No<T> dir;
-        private int h;
-        private int balanc;
+        private No<T> esq, dir;
+        private int h, balanc;
 
         /**
          * Construtor dos Nós internos
@@ -35,8 +35,6 @@ public class ArvAVL <T> {
             this.balanc = 0;
         }
     }
-
-    private No<T> raiz;
 
     /**
      * 
@@ -69,7 +67,7 @@ public class ArvAVL <T> {
      * 
     */
 
-    public boolean isFolha(No<T> no){
+    private boolean isFolha(No<T> no){
         return no.esq == null && no.dir == null;
     }
      
@@ -82,8 +80,8 @@ public class ArvAVL <T> {
     */
     
     private int altura(No<T> no) {
-        return (no == null) ? -1 : 
-                no.h;
+        return (no == null) ? 
+                -1 : no.h;
     }
 
     /**
@@ -102,7 +100,6 @@ public class ArvAVL <T> {
            return sucessor(no.esq);
 
         return no;
-        
     }
 
      /**
@@ -150,7 +147,10 @@ public class ArvAVL <T> {
         noFilho.esq = no;
 
         no.h = Math.max(altura(no.esq), altura(no.dir)) + 1;
-        noFilho.h = Math.max(altura(no.esq), altura(no.dir)) + 1;
+        noFilho.h = Math.max(altura(noFilho.esq), altura(noFilho.dir)) + 1;
+
+        no.balanc = altura(no.esq) - altura(no.dir);
+        noFilho.balanc = altura(noFilho.esq) - altura(noFilho.dir);
 
         return noFilho;
     }
@@ -173,7 +173,10 @@ public class ArvAVL <T> {
         noFilho.dir = no;
 
         no.h = Math.max(altura(no.esq), altura(no.dir)) + 1;
-        noFilho.h = Math.max(altura(no.esq), altura(no.dir)) + 1;
+        noFilho.h = Math.max(altura(noFilho.esq), altura(noFilho.dir)) + 1;
+
+        no.balanc = altura(no.esq) - altura(no.dir);
+        noFilho.balanc = altura(noFilho.esq) - altura(noFilho.dir);
 
         return noFilho;
     }
@@ -191,9 +194,8 @@ public class ArvAVL <T> {
     private No<T> rotacaoDuplaEsquerda(No<T> no) {
 
         no.esq = rotacaoDir(no.esq);
-        no = rotacaoEsq(no);
 
-        return no;
+        return rotacaoEsq(no);
     }
 
     /**
@@ -210,9 +212,7 @@ public class ArvAVL <T> {
 
         no.dir = rotacaoEsq(no.dir); 
 
-        no = rotacaoDir(no); 
-
-        return no;
+        return rotacaoDir(no);
     }
 
 
@@ -273,16 +273,14 @@ public class ArvAVL <T> {
 
     private void imprime(No<T> no){
 
-        System.out.print("{");
-
         if (no != null) 
         {
+            System.out.print("{");
             imprime(no.esq);
             System.out.print(no.chave);
             imprime(no.dir);
+            System.out.print("}");
         }
-
-        System.out.print("}");
     }
 
     /**
@@ -329,9 +327,8 @@ public class ArvAVL <T> {
 
         //Atualiza e verifica o balanceamento
         no.balanc = altura(no.esq) - altura(no.dir);
-        no = balanceia(no);
 
-        return no;
+        return balanceia(no);
     }
 
     /**
@@ -425,8 +422,23 @@ public class ArvAVL <T> {
      * @return quantidade máxima de nós para a altura.
      */
 
-    public static Integer qtdMaximaNos(Integer h){
+    public static int qtdMaximaNos(int h){
         return (int) Math.pow(2, h + 1) - 1;
+    }
+
+    /**
+     * Método que calcula a altura esperada de
+     * uma arvore AVL
+     * 
+     * @param qtdNos quantidade de nós
+     * 
+     * @return Altura Média
+     */
+
+    public static int alturaMedia(int qtdNos){
+        //h = O(log N)
+        return (int) (Math.log(qtdNos) / 
+                     Math.log(2));
     }
 
     /**
