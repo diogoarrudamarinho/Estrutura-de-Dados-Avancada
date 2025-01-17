@@ -5,17 +5,22 @@
 public class Main {
     public static void main(String[] args) {
 
-        /*
+    /* 
+        
         ArvAVL<Integer> a = new ArvAVL<>();
 
-        for (int i = 0; i < 10; i++) 
-            a.insere(i,i);
- 
+        a.insere(10, 10);
+        a.insere(20,20);
+        a.insere(5, 5);
+        a.insere(15,15);
+        a.insere(30, 30);
+        a.insere(3, 3);
+        a.insere(6, 6);
+        a.insere(18, 18);
+
         a.imprime();
-        */
-        System.out.println("Quantidade minima de nós: ");
-        for (int i = 1; i <= 10; i++)
-            System.out.println("N("+ i + ") = " + ArvAVL.alturaMinima(i));
+        a.remove(10);
+    */
         
         
     }

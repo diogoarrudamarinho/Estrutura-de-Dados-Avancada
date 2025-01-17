@@ -28,7 +28,7 @@ public class ArvAVL <T> {
         
         public No(int chave, T valor){
             this.chave = chave;
-            this.valor = valor;;
+            this.valor = valor;
             this.esq = null;
             this.dir = null;
             this.h = 0;
@@ -99,7 +99,7 @@ public class ArvAVL <T> {
     private No<T> sucessor(No<T> no){
 
         if (no.esq != null) 
-           return sucessor(no);
+           return sucessor(no.esq);
 
         return no;
         
@@ -149,8 +149,8 @@ public class ArvAVL <T> {
         no.dir = noFilho.esq;
         noFilho.esq = no;
 
-        no.h = Math.max(altura(no.esq), altura(no.dir));
-        noFilho.h = Math.max(altura(no.esq), altura(no.dir));
+        no.h = Math.max(altura(no.esq), altura(no.dir)) + 1;
+        noFilho.h = Math.max(altura(no.esq), altura(no.dir)) + 1;
 
         return noFilho;
     }
@@ -172,8 +172,8 @@ public class ArvAVL <T> {
         no.esq = noFilho.dir;
         noFilho.dir = no;
 
-        no.h = Math.max(altura(no.esq), altura(no.dir));
-        noFilho.h = Math.max(altura(no.esq), altura(no.dir));
+        no.h = Math.max(altura(no.esq), altura(no.dir)) + 1;
+        noFilho.h = Math.max(altura(no.esq), altura(no.dir)) + 1;
 
         return noFilho;
     }
@@ -191,10 +191,7 @@ public class ArvAVL <T> {
     private No<T> rotacaoDuplaEsquerda(No<T> no) {
 
         no.esq = rotacaoDir(no.esq);
-
         no = rotacaoEsq(no);
-        
-        no.h = Math.max(altura(no.esq), altura(no.dir)) + 1;
 
         return no;
     }
@@ -214,8 +211,6 @@ public class ArvAVL <T> {
         no.dir = rotacaoEsq(no.dir); 
 
         no = rotacaoDir(no); 
-
-        no.h = Math.max(altura(no.esq), altura(no.dir)) + 1;
 
         return no;
     }
@@ -283,7 +278,7 @@ public class ArvAVL <T> {
         if (no != null) 
         {
             imprime(no.esq);
-            System.out.println(no.chave + " -> " + no.valor);
+            System.out.print(no.chave);
             imprime(no.dir);
         }
 
@@ -300,6 +295,7 @@ public class ArvAVL <T> {
     */
 
     public void insere(int chave, T valor){
+        
         raiz = insere(raiz, chave, valor);
     }
 
@@ -317,7 +313,7 @@ public class ArvAVL <T> {
     private No<T> insere(No<T> no, int chave, T valor){
 
         if (no == null) 
-            return new No<T>(chave, valor);
+            return new No<>(chave, valor);
         
         if (chave < no.chave)
             no.esq = insere(no.esq, chave, valor);
@@ -384,7 +380,7 @@ public class ArvAVL <T> {
             
             else
             {
-                No<T> sucessor = sucessor(no);
+                No<T> sucessor = sucessor(no.dir);
 
                 no.chave = sucessor.chave;
                 no.valor = sucessor.valor;
@@ -394,6 +390,7 @@ public class ArvAVL <T> {
         }
         
         no.h = Math.max(altura(no.esq), altura(no.dir)) + 1;
+        no.balanc = altura(no.esq) - altura(no.dir);
 
         return balanceia(no);
     }
@@ -406,17 +403,30 @@ public class ArvAVL <T> {
      * @return quantidade Mínima de nós para a altura.
      */
 
-    public static int alturaMinima(int h){
+    public static int qtdMinimaNos(int h){
 
         if(h == 0)
-            return 0;
-        if(h == 1)
             return 1;
-        if(h == 2)
+        if(h == 1)
             return 2;
+        if(h == 2)
+            return 4;
             
-        return (alturaMinima(h - 1) + 
-                alturaMinima(h - 2) + 1);
+        return (qtdMaximaNos(h - 1) + 
+                qtdMaximaNos(h - 2) + 1);
+    }
+
+    /**
+     * Método que calcula a quantidade 
+     * de nós de uma árvore cheia.
+     * 
+     * @param h altura
+     * 
+     * @return quantidade máxima de nós para a altura.
+     */
+
+    public static Integer qtdMaximaNos(Integer h){
+        return (int) Math.pow(2, h + 1) - 1;
     }
 
     /**
