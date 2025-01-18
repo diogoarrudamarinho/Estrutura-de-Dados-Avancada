@@ -88,7 +88,7 @@ public class ArvAVL <T> {
      * 
      * Retorna nó sucessor
      * 
-     * @param no filho direito.
+     * @param no filho dir.
      * 
      * @return {@code no} mais a esquerda.
      * 
@@ -141,18 +141,17 @@ public class ArvAVL <T> {
 
     private No<T> rotacaoEsq(No<T> no){
 
-        No<T> noFilho = no.dir;
-
-        no.dir = noFilho.esq;
-        noFilho.esq = no;
+        No<T> filho = no.dir;
+        no.dir = filho.esq;
+        filho.esq = no;
 
         no.h = Math.max(altura(no.esq), altura(no.dir)) + 1;
-        noFilho.h = Math.max(altura(noFilho.esq), altura(noFilho.dir)) + 1;
+        filho.h = Math.max(altura(filho.esq), altura(filho.dir)) + 1;
 
         no.balanc = altura(no.esq) - altura(no.dir);
-        noFilho.balanc = altura(noFilho.esq) - altura(noFilho.dir);
+        filho.balanc = altura(filho.esq) - altura(filho.dir);
 
-        return noFilho;
+        return filho;       
     }
 
     /**
@@ -167,18 +166,17 @@ public class ArvAVL <T> {
 
     private No<T> rotacaoDir(No<T> no){
 
-        No<T> noFilho = no.esq;
-
-        no.esq = noFilho.dir;
-        noFilho.dir = no;
-
+        No<T> filho = no.esq;
+        no.esq = filho.dir;
+        filho.dir = no;
+    
         no.h = Math.max(altura(no.esq), altura(no.dir)) + 1;
-        noFilho.h = Math.max(altura(noFilho.esq), altura(noFilho.dir)) + 1;
+        filho.h = Math.max(altura(filho.esq), altura(filho.dir)) + 1;
 
         no.balanc = altura(no.esq) - altura(no.dir);
-        noFilho.balanc = altura(noFilho.esq) - altura(noFilho.dir);
+        filho.balanc = altura(filho.esq) - altura(filho.dir);
 
-        return noFilho;
+        return filho;
     }
 
     /**
@@ -409,8 +407,8 @@ public class ArvAVL <T> {
         if(h == 2)
             return 4;
             
-        return (qtdMaximaNos(h - 1) + 
-                qtdMaximaNos(h - 2) + 1);
+        return (qtdMinimaNos(h - 1) + 
+                qtdMinimaNos(h - 2) + 1);
     }
 
     /**

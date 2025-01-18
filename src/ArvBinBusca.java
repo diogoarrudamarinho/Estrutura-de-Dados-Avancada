@@ -7,6 +7,7 @@ public class ArvBinBusca<T>
 	private class No
 	{
 		private final int chave; /* Chave usada nas compara��es. */
+        private int h; /* Altura */
 		private T valor; /* Informa��o armazenada. */
 		private No esq, dir; /* Refer�ncias para sub�rvores esquerda e direita. */
 
@@ -17,6 +18,7 @@ public class ArvBinBusca<T>
 			this.valor = valor;
 			this.esq = null;
 			this.dir = null;
+            this.h = 0;
 		}
 	}
 	
@@ -27,6 +29,29 @@ public class ArvBinBusca<T>
 	{
 		raiz = null;
 	}
+
+    /**
+     * Método que mostra a altura da BST
+     * 
+     * @return a altura da BST
+     */
+
+    public int getAltura(){
+        return raiz.h;
+    }
+
+    /**
+     * Método privado que retorna a altura de uma subárvore 
+     * 
+     * @param no subárvore
+     * 
+     * @return altura da subárvore
+     */
+
+    private int getAltura(No no) {
+        return (no == null) ? 
+                -1 : no.h;
+    }
 	
 	/** 
 	 * Verifica se a �rvore est� vazia.
@@ -224,6 +249,8 @@ public class ArvBinBusca<T>
 
         else
             no.valor = valor;
+
+        no.h = Math.max(getAltura(no.esq), getAltura(no.dir)) + 1;
 
         return no;
         

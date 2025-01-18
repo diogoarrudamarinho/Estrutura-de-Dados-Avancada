@@ -3,11 +3,11 @@ import java.io.FileWriter;
 import java.io.IOException;
 import java.util.Random;
 
-public class Experimentos {
+public class ExperimentoEmpirico {
     public static void main(String[] args) {
-        
+
         int experimentos = 100; 
-        String fileName = "Experimento_Altura_Arvores.csv"; 
+        String fileName = "Experimento_Altura_Empirica.csv"; 
         
         try (FileWriter writer = new FileWriter(fileName))
         {
@@ -18,7 +18,7 @@ public class Experimentos {
 
         } catch (Exception e) {
             System.err.println(e.getMessage());
-        }
+        } 
     }
 
     private static void experimentoAVL(FileWriter writer, int experimentos) throws IOException {
@@ -33,7 +33,9 @@ public class Experimentos {
             int alturaEsperadaAVL = ArvAVL.alturaMedia(qtdChaves);
 
             for (int j = 0; j < qtdChaves; j++)
-                arvAVL.insere(j, j);
+                arvAVL.insere(new Random()
+                                  .nextInt(1, qtdChaves),
+                                   j);
 
             writer.write(String.format("AVL,%d,%d,%d\n", 
                          qtdChaves, arvAVL.getAltura(), alturaEsperadaAVL));
@@ -49,13 +51,15 @@ public class Experimentos {
                                          (int) (Math.pow(10, 6)));  
 
             ArvBinBusca<Integer> arvBusca = new ArvBinBusca<>();
-            int alturaEsperadaBST = ArvAVL.alturaMedia(qtdChaves);
+            int alturaEsperadaBST = ArvAVL.alturaMedia(qtdChaves); // fazer a altura media na ArvBinBusca
 
             for (int j = 0; j < qtdChaves; j++)
-                arvBusca.insere(j, j);
+                arvBusca.insere(new Random()
+                                    .nextInt(1, qtdChaves),
+                                    j);
 
             writer.write(String.format("AVL,%d,%d,%d\n", 
-                         qtdChaves, arvBusca.altura(), alturaEsperadaBST));
+                         qtdChaves, arvBusca.getAltura(), alturaEsperadaBST));
         }
     }
 }
