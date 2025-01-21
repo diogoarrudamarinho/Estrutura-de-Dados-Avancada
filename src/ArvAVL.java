@@ -191,7 +191,7 @@ public class ArvAVL <T> {
 
     private No<T> rotacaoDuplaEsquerda(No<T> no) {
 
-        no.esq = rotacaoDir(no.esq);
+        no.dir = rotacaoDir(no.dir);
 
         return rotacaoEsq(no);
     }
@@ -208,7 +208,7 @@ public class ArvAVL <T> {
 
     private No<T> rotacaoDuplaDireita(No<T> no) {
 
-        no.dir = rotacaoEsq(no.dir); 
+        no.esq = rotacaoEsq(no.esq); 
 
         return rotacaoDir(no);
     }
@@ -434,9 +434,8 @@ public class ArvAVL <T> {
      */
 
     public static int alturaMedia(int qtdNos){
-        //h = O(log N)
-        return (int) (Math.log(qtdNos) / 
-                     Math.log(2));
+        return (int) ((1.44 * (Math.log(qtdNos) / 
+                     Math.log(2)) - 0.328));
     }
 
     /**

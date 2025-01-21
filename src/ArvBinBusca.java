@@ -393,6 +393,19 @@ public class ArvBinBusca<T>
         	return x; 
     }
 
+    /**
+     * Método que calcula a altura esperada de
+     * uma BST
+     * 
+     * @param qtdNos quantidade de nós
+     * 
+     * @return Altura Média
+     */
+
+     public static int alturaMedia(int qtdNos){
+        return (int) ((4.311 * (Math.log(qtdNos) / 
+                     Math.log(2)) - 1.953));
+    }
     
     /**
      * Retorna a menor chave na �rvore que � maior ou igual � {@code chave} fornecida.
