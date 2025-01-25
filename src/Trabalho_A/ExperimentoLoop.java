@@ -1,12 +1,11 @@
 package Trabalho_A;
+import Trabalho_A.Arvores.ArvAVL;
+import Trabalho_A.Arvores.ArvBinBusca;
 import java.io.FileWriter;
 import java.io.IOException;
 import java.util.ArrayList;
 import java.util.List;
 import java.util.Random;
-
-import Arvores.ArvAVL;
-import Arvores.ArvBinBusca;
 
 public class ExperimentoLoop {
     public static void main(String[] args) {

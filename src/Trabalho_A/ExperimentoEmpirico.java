@@ -1,10 +1,11 @@
 package Trabalho_A;
 
-import Arvores.ArvAVL;
-import Arvores.ArvBinBusca;
 import java.io.FileWriter;
 import java.io.IOException;
 import java.util.Random;
+
+import Trabalho_A.Arvores.ArvAVL;
+import Trabalho_A.Arvores.ArvBinBusca;
 
 public class ExperimentoEmpirico {
     public static void main(String[] args) {
