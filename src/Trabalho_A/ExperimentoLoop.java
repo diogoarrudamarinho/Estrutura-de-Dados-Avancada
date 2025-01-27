@@ -186,7 +186,7 @@ public class ExperimentoLoop {
             double media = calculaMedia(alturas);
             double desvioPadrao = calculaDesvioPadrao(alturas, media);
 
-            resumoWriter.write(String.format("AVL,%.2f,%.2f\n", media, desvioPadrao));
+            resumoWriter.write(String.format("AVL,%f,%f\n", media, desvioPadrao));
         }
     }
 
@@ -235,7 +235,7 @@ public class ExperimentoLoop {
             double media = calculaMedia(alturas);
             double desvioPadrao = calculaDesvioPadrao(alturas, media);
 
-            resumoWriter.write(String.format("BST,%.2f,%.2f\n", media, desvioPadrao));            
+            resumoWriter.write(String.format("BST,%f,%f\n", media, desvioPadrao));            
         }    
     }
 
