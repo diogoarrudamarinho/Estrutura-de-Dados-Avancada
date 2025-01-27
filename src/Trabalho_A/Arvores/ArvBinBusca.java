@@ -114,17 +114,11 @@ public class ArvBinBusca<T>
     }
     
     /**
-     * Retorna o maior elemento da �rvore.
+     * Retorna o maior Antecessor da subárvore.
      *
      * @return o maior elemento da �rvore
      * @throws NoSuchElementException se a �rvore est� vazia
      */
-    public int max() {
-        if(vazia()) 
-        	throw new NoSuchElementException("A �rvore est� vazia!");
-        
-        return max(raiz).chave;
-    } 
 
     private No max(No x) {
         if (x.dir == null)
@@ -353,6 +347,40 @@ public class ArvBinBusca<T>
     	return x;
     }
     
+    public void removeAntecessor(int chave)
+    {
+        raiz = removeAntecessor(raiz, chave);
+    }
+
+    private No removeAntecessor(No x, int chave)
+    {
+        if (x == null)
+            return null;
+        
+        if(chave < x.chave)
+            x.esq = removeAntecessor(x.esq, chave);
+        else if(chave > x.chave)
+            x.dir = removeAntecessor(x.dir, chave);
+        else
+        { 
+            if(x.dir == null)
+                return x.esq;
+            if(x.esq  == null)
+                return x.dir;
+            
+            No t = x;
+
+            /* Pega o maior da sub�rvore esquerda (mais � direita). */
+            x = max(t.esq);
+
+            /* Remove o maior. */
+            x.esq = removeMax(t.esq);
+
+            /* A sub�rvore direita se mant�m a mesma. */
+            x.dir = t.dir;
+        }
+        return x;
+    }
     
     /**
      * Retorna a maior chave na �rvore que � menor ou igual � {@code chave} fornecida.

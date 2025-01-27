@@ -103,6 +103,13 @@ public class ArvAVL <T> {
         return no;
     }
 
+    private No<T> antecessor(No<T> no){
+        if (no.dir != null) 
+           return antecessor(no.dir);
+
+        return no;
+    }
+
      /**
      * Verifica o balanceamento da árvore.
      * 
@@ -332,6 +339,68 @@ public class ArvAVL <T> {
 
     /**
      * 
+     * Remove o nó a partir de sua chave utilizando a técnica do antecessor
+     * e, se necessário, balanceia a árvore.
+     * 
+     * @param chave do nó a ser removido
+     * 
+    */
+
+    public void removeAntecessor(int chave){
+        raiz = removeAntecessor(raiz, chave);
+    }
+
+    /**
+     * Remove o nó a partir de sua chave.
+     * 
+     * @param no árvore/subárvore
+     * @param chave do nó a ser removido
+     * 
+     * @return  nó após a remoção,
+     *          {@code null} caso remova filho ou não exista chave.
+    */
+
+    private No<T> removeAntecessor(No<T> no, int chave){
+
+        if (no == null) 
+            return null;
+        
+        if (chave < no.chave)
+            no.esq = removeAntecessor(no.esq, chave);
+
+        else if (chave > no.chave)
+            no.dir = removeAntecessor(no.dir, chave);
+        
+        else
+        {
+            if (isFolha(no)) 
+                return null;
+
+            else if (no.esq == null) 
+                return no.dir;
+            
+            else if (no.dir == null)
+                return no.esq;
+            
+            else
+            {
+                No<T> antecessor = antecessor(no.esq);
+
+                no.chave = antecessor.chave;
+                no.valor = antecessor.valor;
+
+                no.esq = removeAntecessor(no.esq, antecessor.chave);
+            }  
+        }
+        
+        no.h = Math.max(altura(no.esq), altura(no.dir)) + 1;
+        no.balanc = altura(no.esq) - altura(no.dir);
+
+        return balanceia(no);
+    }
+
+    /**
+     * 
      * Remove o nó a partir de sua chave e, se necessário, balanceia a árvore.
      * 
      * @param chave do nó a ser removido
@@ -339,7 +408,7 @@ public class ArvAVL <T> {
      */
 
     public void remove(int chave){
-       raiz = remove(raiz, chave);
+        raiz = remove(raiz, chave);
     }
 
     /**
