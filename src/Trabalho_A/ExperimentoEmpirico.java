@@ -18,8 +18,8 @@ public class ExperimentoEmpirico {
         try (FileWriter writer = new FileWriter(fileName);
             FileWriter resumoWriter = new FileWriter(resumoFileName))
         {
-            writer.write("Tipo,Qtd Chaves,Altura,Altura Esperada\n");
-            resumoWriter.write("Tipo,Media,Desvio Padrao\n");
+            writer.write("Tipo;Qtd Chaves;Altura;Altura Esperada\n");
+            resumoWriter.write("Tipo;Media;Desvio Padrao\n");
             
             experimentoAVL(writer, experimentos, resumoWriter);
             experimentoBST(writer, experimentos, resumoWriter);
@@ -50,7 +50,7 @@ public class ExperimentoEmpirico {
                                     .nextInt(1, qtdChaves * 1000),
                                             j);
             
-                writer.write(String.format("AVL,%d,%d,%d\n", 
+                writer.write(String.format("AVL;%d;%d;%d\n", 
                                     qtdChaves, arvAVL.getAltura(), alturaEsperadaAVL));
 
                 alturas.add(arvAVL.getAltura());
@@ -59,7 +59,7 @@ public class ExperimentoEmpirico {
             double media = calculaMedia(alturas);
             double desvioPadrao = calculaDesvioPadrao(alturas, media);
 
-            resumoWriter.write(String.format("AVL,%f,%f\n", media, desvioPadrao));
+            resumoWriter.write(String.format("AVL;%f;%f\n", media, desvioPadrao));
         }
     }
 
@@ -83,7 +83,7 @@ public class ExperimentoEmpirico {
                                     .nextInt(1, qtdChaves * 1000),
                                         j);
                 
-                writer.write(String.format("BST,%d,%d,%d\n", qtdChaves, arvBusca.getAltura(), alturaEsperadaBST));
+                writer.write(String.format("BST;%d;%d;%d\n", qtdChaves, arvBusca.getAltura(), alturaEsperadaBST));
 
                 alturas.add(arvBusca.getAltura());
             }
@@ -91,7 +91,7 @@ public class ExperimentoEmpirico {
             double media = calculaMedia(alturas);
             double desvioPadrao = calculaDesvioPadrao(alturas, media);
 
-            resumoWriter.write(String.format("BST,%f,%f\n", media, desvioPadrao));
+            resumoWriter.write(String.format("BST;%f;%f\n", media, desvioPadrao));
         }
     }
 

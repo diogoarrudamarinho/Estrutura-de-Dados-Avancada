@@ -16,8 +16,8 @@ public class ExperimentoLoop {
         try (FileWriter writer = new FileWriter(fileName);
             FileWriter resumoWriter = new FileWriter(resumoFileName)) 
         {
-            writer.write("Tipo_Sucessor,Qtd Chaves,Altura,Altura Esperada\n");
-            resumoWriter.write("Tipo_Sucessor,Media,Desvio Padrao\n");
+            writer.write("Tipo_Sucessor;Qtd Chaves;Altura;Altura Esperada\n");
+            resumoWriter.write("Tipo_Sucessor;Media;Desvio Padrao\n");
             
             experimentoAVL(writer, resumoWriter);
             experimentoBST(writer, resumoWriter);
@@ -32,8 +32,8 @@ public class ExperimentoLoop {
         try (FileWriter writer = new FileWriter(fileNameAntecessor);
             FileWriter resumoWriter = new FileWriter(resumoFileNameAntecessor)) 
         {
-            writer.write("Tipo_Antecessor,Qtd Chaves,Altura,Altura Esperada\n");
-            resumoWriter.write("Tipo_Antecessor,Media,Desvio Padrao\n");
+            writer.write("Tipo_Antecessor;Qtd Chaves;Altura;Altura Esperada\n");
+            resumoWriter.write("Tipo_Antecessor;Media;Desvio Padrao\n");
             
             experimentoAntecessorAVL(writer, resumoWriter);
             experimentoAntecessorBST(writer, resumoWriter);
@@ -70,7 +70,12 @@ public class ExperimentoLoop {
                 
                 for (int k = 0; k < qtdLoop; k++)
                 { 
-                    arvBusca.removeAntecessor(chaves.remove(
+                    if(new Random().nextBoolean() == true)
+                        arvBusca.remove(chaves.remove(
+                                        new Random()
+                                        .nextInt(chaves.size())));
+                    else
+                        arvBusca.removeAntecessor(chaves.remove(
                                         new Random()
                                         .nextInt(chaves.size())));
 
@@ -79,7 +84,7 @@ public class ExperimentoLoop {
                     chaves.add(chave);
                 }
                 
-                writer.write(String.format("BST,%d,%d,%d\n", 
+                writer.write(String.format("BST;%d;%d;%d\n", 
                                         qtdChaves, arvBusca.getAltura(), alturaEsperadaBST));
 
                 alturas.add(arvBusca.getAltura()); 
@@ -88,7 +93,7 @@ public class ExperimentoLoop {
             double media = calculaMedia(alturas);
             double desvioPadrao = calculaDesvioPadrao(alturas, media);
 
-            resumoWriter.write(String.format("BST,%.2f,%.2f\n", media, desvioPadrao));
+            resumoWriter.write(String.format("BST;%f;%f\n", media, desvioPadrao));
         }                           
     }
 
@@ -119,7 +124,12 @@ public class ExperimentoLoop {
                 
                 for (int k = 0; k < qtdLoop; k++)
                 { 
-                    arvAVL.removeAntecessor(chaves.remove(
+                    if(new Random().nextBoolean() == true)
+                        arvAVL.remove(chaves.remove(
+                                        new Random()
+                                        .nextInt(chaves.size())));
+                    else
+                        arvAVL.removeAntecessor(chaves.remove(
                                         new Random()
                                         .nextInt(chaves.size())));
 
@@ -128,7 +138,7 @@ public class ExperimentoLoop {
                     chaves.add(chave);
                 }
 
-                writer.write(String.format("AVL,%d,%d,%d\n", 
+                writer.write(String.format("AVL;%d;%d;%d\n", 
                                         qtdChaves, arvAVL.getAltura(), alturaEsperadaAVL));
                 
                 alturas.add(arvAVL.getAltura());
@@ -137,7 +147,7 @@ public class ExperimentoLoop {
             double media = calculaMedia(alturas);
             double desvioPadrao = calculaDesvioPadrao(alturas, media);
 
-            resumoWriter.write(String.format("AVL,%.2f,%.2f\n", media, desvioPadrao));
+            resumoWriter.write(String.format("AVL;%f;%f\n", media, desvioPadrao));
         }
     }
     
@@ -177,7 +187,7 @@ public class ExperimentoLoop {
                     chaves.add(chave);
                 }
 
-                writer.write(String.format("AVL,%d,%d,%d\n", 
+                writer.write(String.format("AVL;%d;%d;%d\n", 
                                         qtdChaves, arvAVL.getAltura(), alturaEsperadaAVL));
 
                 alturas.add(arvAVL.getAltura());
@@ -186,7 +196,7 @@ public class ExperimentoLoop {
             double media = calculaMedia(alturas);
             double desvioPadrao = calculaDesvioPadrao(alturas, media);
 
-            resumoWriter.write(String.format("AVL,%f,%f\n", media, desvioPadrao));
+            resumoWriter.write(String.format("AVL;%f;%f\n", media, desvioPadrao));
         }
     }
 
@@ -226,7 +236,7 @@ public class ExperimentoLoop {
                     chaves.add(chave);
                 }
                 
-                writer.write(String.format("BST,%d,%d,%d\n", 
+                writer.write(String.format("BST;%d;%d;%d\n", 
                                         qtdChaves, arvBusca.getAltura(), alturaEsperadaBST));
 
                 alturas.add(arvBusca.getAltura());
@@ -235,7 +245,7 @@ public class ExperimentoLoop {
             double media = calculaMedia(alturas);
             double desvioPadrao = calculaDesvioPadrao(alturas, media);
 
-            resumoWriter.write(String.format("BST,%f,%f\n", media, desvioPadrao));            
+            resumoWriter.write(String.format("BST;%f;%f\n", media, desvioPadrao));            
         }    
     }
 
