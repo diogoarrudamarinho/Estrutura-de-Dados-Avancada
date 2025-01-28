@@ -70,7 +70,7 @@ public class ExperimentoLoop {
                 
                 for (int k = 0; k < qtdLoop; k++)
                 { 
-                    if(new Random().nextBoolean() == true)
+                    if(new Random().nextBoolean())
                         arvBusca.remove(chaves.remove(
                                         new Random()
                                         .nextInt(chaves.size())));
@@ -124,7 +124,7 @@ public class ExperimentoLoop {
                 
                 for (int k = 0; k < qtdLoop; k++)
                 { 
-                    if(new Random().nextBoolean() == true)
+                    if(new Random().nextBoolean())
                         arvAVL.remove(chaves.remove(
                                         new Random()
                                         .nextInt(chaves.size())));
